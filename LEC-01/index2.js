@@ -16,7 +16,14 @@ fs.readFile("demo.txt",(data)=>{
         console.log("immediate 2")
     });
 })
-
+function someTask(){
+    return new Promise((resolve, reject)=>{
+        resolve("promise")
+    })
+}
+someTask().then((data)=>{
+    console.log(data)
+})
 console.log("End");
 
 //set timeout-> callback and timer 
