@@ -24,6 +24,12 @@ function someTask(){
 someTask().then((data)=>{
     console.log(data)
 })
+.catch ((err)=>{
+    console.log(err)
+})
+process.nextTick(()=>{
+    console.log("next tick")
+})
 console.log("End");
 
 //set timeout-> callback and timer 
