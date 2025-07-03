@@ -19,6 +19,5 @@ fs.readFile("demo.txt",(data)=>{
 
 console.log("End");
 
-
 //set timeout-> callback and timer 
 //set timeout is running before set immediate why?
