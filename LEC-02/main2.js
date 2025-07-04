@@ -1,2 +1,2 @@
 let file= require("./file2.js");
-console.log(file.mul(3,2));
+console.log(file2.mul(3,2));
