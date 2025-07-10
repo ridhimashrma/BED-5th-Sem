@@ -1,17 +1,17 @@
-let products=[
+let account_balance = 200000;
+let products = [
     {
-        name:"samsung",
-        price:70000,
-        quantity:10,
+        name: "samsung",
+        price: 70000,
+        quantity: 10,
     },
     {
-        name:"iphone 13",
-        price:1000000,
-        quantity:10,
+        name: "iphone 13",
+        price: 1000000,
+        quantity: 10,
     }
-]
+];
 
-let account_balance=200000;
 
 // function buyProduct(product_name,cb) {
 //     //some asynchronous operations
@@ -24,57 +24,70 @@ let account_balance=200000;
 //     })
 // }
 
-function deductAmount(amount,cb){
-    if (amount>account_balance){
-        cb("insufficient account balance",null);
-    } 
-    else {
-        account_balance-=amount;
-        cb(null,"purchased");
-    }
-}
-
-
-buyProduct("iphone 13",function(err,price){
-    //console.log("product is purchased")
-    if (err) {
-       return console.log(err);
-       console.log(amount)
-    } deductAmount(amount,function()) {
-        if (err) return console.log(err);
-        console.log(message);
-    }
-})
-// console.log("product is purchased")
 
 
 
-function buyProduct(product_name,cb){
-    let isproduct=null;
+// Function to find product and return its price
+function buyProduct(product_name, cb) {
+    let isproduct = null;
+    
     //implement for loop to find product in an array
     //find product object from array who's name is equal to product_name
-    for(let i=0;i<products.length;i++){
-        //console.log(products[i])
-        if(products[i].name==product_name){
-            //isproduct=true;
-            isproduct=products[i]
-            //break;
+    // Search for the product
+
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].name === product_name) {
+            isproduct = products[i];
         }
     }
-    //console.log("product available:",isproduct)
-    if(!isproduct){
-        cb("product not available",null)
-    }
-    else{
-        cb(null,isproduct.price)
-    }
 
+    if (!isproduct) {
+        cb("product not available", null);
+    } else {
+        console.log("order complete");
+        cb(null, isproduct.price);
+        cb(null, isproduct.price);
+
+    }
 }
-//buyProduct("samsung",buyProduct)
 
 
 
+// Function to deduct amount from account balance
+function deductAmount(amount, cb) {
+    if (amount > account_balance) {
+        cb("insufficient account balance", null);
+    } else {
+        account_balance -= amount;
+        cb(null, "purchased");
+    }
+}
+
+
+// Final purchase flow
+buyProduct("iphone 13", function (err, price) {
+    if (err) return console.log(err);
+    console.log(price)
+
+    deductAmount(price, function (err, message) {
+        if (err) {
+            return console.log(err);
+        }
+
+        console.log(message); // "purchased"
+        console.log("remaining account balance:", account_balance);
+    });
+});
 
 
 //problems in callback 
 //callback hell-> nested callback [readability less, not managable]
+
+
+
+
+
+
+
+
+
