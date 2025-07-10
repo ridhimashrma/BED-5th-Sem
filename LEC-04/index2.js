@@ -1,3 +1,7 @@
+
+
+
+
 let products=[
     {
         name:"samsung",
@@ -40,10 +44,10 @@ buyProduct("iphone 13",function(err,price){
     if (err) {
        return console.log(err);
        console.log(amount)
-    } deductAmount(amount,function()) {
+    } deductAmount(price,function(price,cb){
         if (err) return console.log(err);
         console.log(message);
-    }
+    })
 })
 // console.log("product is purchased")
 
