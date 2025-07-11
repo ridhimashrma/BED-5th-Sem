@@ -77,8 +77,5 @@ function buyProduct(product_name,cb){
 //buyProduct("samsung",buyProduct)
 
 
-
-
-
 //problems in callback 
 //callback hell-> nested callback [readability less, not managable]
