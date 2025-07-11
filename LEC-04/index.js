@@ -36,7 +36,7 @@ function buyProduct(product_name, cb) {
     // Search for the product
 
     for (let i = 0; i < products.length; i++) {
-        if (products[i].name === product_name) {
+        if (products[i].name == product_name) {
             isproduct = products[i];
         }
     }
@@ -82,6 +82,7 @@ buyProduct("iphone 13", function (err, price) {
 
 //problems in callback 
 //callback hell-> nested callback [readability less, not managable]
+// no control on your own code
 
 
 
