@@ -18,6 +18,8 @@ fs.readFile("../demo.txt","utf-8",function (err,data) {
     })
 })
 
+console.log(process.argv)
+
 //closure
 
 //hw remove spaces
