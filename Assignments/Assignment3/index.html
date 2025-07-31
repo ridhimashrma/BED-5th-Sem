@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Todo</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #fafafa;
+  margin: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#todoUserInput {
+  width: 300px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+}
+
+#todoUserInput:focus {
+  border-color: #3a86ff;
+}
+
+#addTodoButton {
+  padding: 8px 15px;
+  font-size: 16px;
+  border: none;
+  background-color: #3a86ff;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+#addTodoButton:hover {
+  background-color: #2f6fd1;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 25px;
+  width: 320px;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.todo-text {
+  flex-grow: 1;
+  font-size: 16px;
+  color: #444;
+}
+
+button {
+  margin-left: 6px;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:nth-child(2) { /* Edit */
+  background-color: #f0ad4e; /* orange-ish */
+}
+
+button:nth-child(3) { /* Delete */
+  background-color: #d9534f; /* red */
+}
+
+.edit-input {
+  flex-grow: 1;
+  padding: 7px 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.edit-input:focus {
+  border-color: #3a86ff;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>Todo</h1>
+
+  <input type="text" id="todoUserInput" placeholder="Enter task here..." />
+  <button id="addTodoButton">Add</button>
+
+  <ul id="todoItemsContainer"></ul>
+
+  <script src="index.js"></script>
+</body>
+</html>
