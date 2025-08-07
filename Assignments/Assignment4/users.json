@@ -1,0 +1,24 @@
+[
+  {
+    "username": "ridhima",
+    "password": "566"
+  },
+  {
+    "username": "ridam",
+    "password": "123"
+  },
+  {
+    "username": "hello",
+    "password": "123",
+    "todos": [
+      {
+        "title": "study",
+        "description": "math"
+      },
+      {
+        "title": "study2",
+        "description": "science"
+      }
+    ]
+  }
+]
