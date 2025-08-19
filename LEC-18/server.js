@@ -123,3 +123,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/g27dB')
 app.listen(9999,()=>{
     console.log("server started")
 })
+
+
+//deletion and updation
