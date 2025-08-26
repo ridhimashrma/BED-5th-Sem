@@ -1,6 +1,6 @@
 const express=require("express")
 const mongoose=require("mongoose")
-const jwt=require("jsonwebtoken")
+const jwt=require("jsonwebtoken") //token based authorization
 const app=express()
 const Users=require("./model/user")
 let userRoutes=require("./routes/userRoutes")
@@ -8,20 +8,29 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use("/api/users",userRoutes)
 
-function isLogin(req,res,next){
-    let token=req.headers.authorization;
-    console.log(token)
-    let decode=jwt.verify(token,"hello")
-    if(decode){
-        let username=req.username;
-        return next()
-    }
-    res.json({
-        success:true,
-        message`welcome ${username}`
-    })
+function isLogin(req, res, next) {
+    let token = req.headers.authorization;
+    console.log("Token received:", token);
 
+    if (!token) {
+        return res.json({
+            success: false,
+            message: "Token not provided"
+        });
+    }
+
+    try {
+        let decode = jwt.verify(token, "hello");
+        req.username = decode.username;
+        return next();
+    } catch (err) {
+        return res.json({
+            success: false,
+            message: "Invalid token"
+        });
+    }
 }
+
 
 app.get("/home",isLogin,(req,res)=>{
     res.json({
