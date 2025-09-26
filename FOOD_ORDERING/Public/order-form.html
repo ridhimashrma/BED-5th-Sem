@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Form - YummyHub</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 30px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .nav-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      max-width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .nav-btn:hover {
+      background-color: #219150;
+    }
+  </style>
+</head>
+<body>
+  <h2>📝 Fill in Your Order Details</h2>
+  <div id="error-messages"></div>
+  <form action="/place-order" method="POST" id="order-form">
+    <label for="name">Full Name</label>
+    <input type="text" name="name" required>
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" name="phone" required>
+
+    <label for="address">Delivery Address</label>
+    <textarea name="address" rows="3" required></textarea>
+
+    <button type="submit">Submit Order</button>
+  </form>
+  <a href="/cart.html" class="nav-btn">Back to Cart</a>
+  <script>
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    }
+
+    fetch('/check-auth', {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.isAuthenticated) {
+          window.location.href = '/login.html';
+        }
+        if (data.error) {
+          const errorDiv = document.getElementById('error-messages');
+          const p = document.createElement('p');
+          p.className = 'error-message';
+          p.textContent = data.error;
+          errorDiv.appendChild(p);
+        }
+      });
+
+    document.getElementById('order-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      fetch('/place-order', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert(data.error);
+            if (data.redirect) window.location.href = data.redirect;
+          } else {
+            window.location.href = data.redirect;
+          }
+        });
+    });
+  </script>
+</body>
+</html>

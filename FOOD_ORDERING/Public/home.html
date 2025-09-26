@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Ordering Center</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      background-size: cover;
+      background-position: center;
+      filter: blur(8px);
+      z-index: 0;
+    }
+
+    .homepage {
+      background: #ece1e1dd;
+      border-radius: 16px;
+      padding: 50px 30px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 90%;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .homepage h1 {
+      font-size: 2.4rem;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .homepage p {
+      font-size: 1.2rem;
+      color: #34495e;
+      margin-bottom: 30px;
+    }
+
+    .home-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .home-btn {
+      background-color: #e67e22;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .home-btn:hover {
+      background-color: #d35400;
+      transform: scale(1.05);
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="homepage">
+    <h1>🍔 Welcome to YummyHub</h1>
+    <p>Explore our mouth-watering menu now!</p>
+    <div id="error-messages"></div>
+    <div class="home-buttons" id="auth-links">
+      <a href="/login.html" class="home-btn">Login</a>
+      <a href="/register.html" class="home-btn">Register</a>
+      <!-- <a href="/menu.html" class="home-btn">🍽 View Menu</a> -->
+    </div>
+  </div>
+  <script>
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    }
+
+    fetch('/check-auth', {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.isAuthenticated) {
+          document.getElementById('auth-links').innerHTML = `
+            <a href="/menu.html" class="home-btn">🍽 View Menu</a>
+            <a href="/view-orders" class="home-btn">View Orders</a>
+            <a href="/logout" class="home-btn">Logout</a>
+          `;
+        }
+        if (data.error) {
+          const errorDiv = document.getElementById('error-messages');
+          const p = document.createElement('p');
+          p.className = 'error-message';
+          p.textContent = data.error;
+          errorDiv.appendChild(p);
+        }
+      });
+  </script>
+</body>
+</html>

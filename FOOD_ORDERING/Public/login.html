@@ -1,0 +1,279 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - YummyHub</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .login-form {
+      max-width: 500px;
+      width: 100%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+      color: #34495e;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 30px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+
+    .nav-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      background-color: #e67e22;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .nav-btn:hover {
+      background-color: #d35400;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-form">
+    <h1>Login</h1>
+    <div id="error-messages"></div>
+    <form id="login-form">
+      <label for="username">Username</label>
+      <input type="text" id="login-username" required>
+      <label for="password">Password</label>
+      <input type="password" id="login-password" required>
+      <button type="submit">Login</button>
+    </form>
+    <a href="/Public/register.html" class="nav-btn">Don't have an account? Register</a>
+  </div>
+  <script>
+    const loginForm = document.querySelector("#login-form");
+    const loginUsername = document.querySelector("#login-username");
+    const loginPassword = document.querySelector("#login-password");
+
+    loginForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      let username = loginUsername.value;
+      let password = loginPassword.value;
+      let response = await fetch("/login", {
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          password: password
+        }),
+        headers: {
+          "content-type": "application/json"
+        }
+      });
+      let data = await response.json();
+      console.log(data);
+      if (data.success) {
+        let userId = data.userId;
+        localStorage.setItem("userId", userId);
+        alert("login successful");
+        //loginForm.reset();
+        window.location.href ="/menu";  // Basic JS to go to menu page after login
+      } else {
+        alert("error logging in");
+      }
+    });
+    
+  </script>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - YummyHub</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .login-form {
+      max-width: 500px;
+      width: 100%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+      color: #34495e;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 30px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+
+    .nav-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      background-color: #e67e22;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .nav-btn:hover {
+      background-color: #d35400;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-form">
+    <h1>Login</h1>
+    <div id="error-messages"></div>
+    <form id="login-form">
+      <label for="username">Username</label>
+      <input type="text" id="login-username" required>
+      <label for="password">Password</label>
+      <input type="password" id="login-password" required>
+      <button type="submit">Login</button>
+    </form>
+    <a href="/register.html" class="nav-btn">Don't have an account? Register</a>
+
+    <!-- Hidden form to handle redirect without using window -->
+    <form id="redirect-form" action="/menu.html" method="GET" style="display:none"></form>
+  </div>
+
+  <script>
+    const loginForm = document.querySelector("#login-form");
+    const loginUsername = document.querySelector("#login-username");
+    const loginPassword = document.querySelector("#login-password");
+    const redirectForm = document.querySelector("#redirect-form");
+
+    loginForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      let username = loginUsername.value;
+      let password = loginPassword.value;
+
+      let response = await fetch("/login", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+        headers: { "content-type": "application/json" }
+      });
+
+      let data = await response.json();
+      console.log(data);
+
+      if (data.success) {
+        // Store userId in localStorage
+        localStorage.setItem("userId", data.userId);
+        
+        alert("Login successful!");
+
+        // Submit hidden form to redirect without window
+        redirectForm.submit();
+      } else {
+        alert("Error logging in");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Order</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fefcf9;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .order-form {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 1rem;
+      color: #34495e;
+      display: block;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 12px;
+      background-color: #27ae60;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .form-group button:hover {
+      background-color: #219150;
+    }
+
+    .nav-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      max-width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .nav-btn:hover {
+      background-color: #219150;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Update Order</h1>
+  <div id="error-messages"></div>
+
+  <div class="order-form">
+    <form action="" method="POST" id="update-form">
+      <div class="form-group">
+        <label for="item">Item Name</label>
+        <select name="item" id="item" required>
+          <option value="">-- Select an Item --</option>
+          <option value="Pizza">Pizza</option>
+          <option value="Burger">Burger</option>
+          <option value="Pasta">Pasta</option>
+          <option value="Salad">Salad</option>
+          <option value="Sushi">Sushi</option>
+          <option value="Tacos">Tacos</option>
+          <option value="Fried Rice">Fried Rice</option>
+          <option value="Biryani">Biryani</option>
+          <option value="Noodles">Noodles</option>
+          <option value="Sandwich">Sandwich</option>
+          <option value="Wraps">Wraps</option>
+          <option value="Desserts">Desserts</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" required min="1">
+      </div>
+
+      <div class="form-group">
+        <button type="submit">Update Order</button>
+      </div>
+    </form>
+  </div>
+
+  <a href="/view-orders" class="nav-btn">Back to Orders</a>
+
+  <script>
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    }
+
+    fetch('/check-auth', {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.isAuthenticated) {
+          window.location.href = '/login.html';
+        }
+        if (data.error) {
+          const errorDiv = document.getElementById('error-messages');
+          const p = document.createElement('p');
+          p.className = 'error-message';
+          p.textContent = data.error;
+          errorDiv.appendChild(p);
+        }
+      });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get('orderId');
+    
+    fetch(`/update-order/${orderId}`, {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+          if (data.redirect) window.location.href = data.redirect;
+          return;
+        }
+        document.getElementById('item').value = data.order.itemName;
+        document.getElementById('quantity').value = data.order.quantity;
+        document.getElementById('update-form').action = `/update-order/${orderId}`;
+      });
+
+    document.getElementById('update-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      fetch(`/update-order/${orderId}`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert(data.error);
+            if (data.redirect) window.location.href = data.redirect;
+          } else {
+            window.location.href = data.redirect;
+          }
+        });
+    });
+  </script>
+</body>
+</html>
