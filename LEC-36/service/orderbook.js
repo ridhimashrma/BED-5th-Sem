@@ -198,16 +198,16 @@ class OrderBook {
 }
 
 let BTCUSDOrderBook = new OrderBook("BTC_USD");
-// BTCUSDOrderBook.bids.push({price:"100" , quantity:10 , type:"LIMIT" , user:"Yuvika"});
-// BTCUSDOrderBook.bids.push({price:"101" , quantity:10 , type:"LIMIT" , user:"Upasana"});
-// BTCUSDOrderBook.bids.push({price:"99" , quantity:10 , type:"LIMIT" , user:"Samiya"});
+// BTCUSDOrderBook.bids.push({price:"100" , quantity:10 , type:"LIMIT" , user:"Ridhima"});
+// BTCUSDOrderBook.bids.push({price:"101" , quantity:10 , type:"LIMIT" , user:"Samiya"});
+// BTCUSDOrderBook.bids.push({price:"99" , quantity:10 , type:"LIMIT" , user:"yuvika"});
 
 // console.log(BTCUSDOrderBook);
 // BTCUSDOrderBook._sort("BUY");
 
-// BTCUSDOrderBook.ask.push({price:"101" , quantity:5 , type:"LIMIT" , user:"Yuvika"});
+// BTCUSDOrderBook.ask.push({price:"101" , quantity:5 , type:"LIMIT" , user:"sonam"});
 // BTCUSDOrderBook.ask.push({price:"102" , quantity:10 , type:"LIMIT" , user:"Upasana"});
-// BTCUSDOrderBook.ask.push({price:"110" , quantity:10 , type:"LIMIT" , user:"Yuvika"});
+// BTCUSDOrderBook.ask.push({price:"110" , quantity:10 , type:"LIMIT" , user:"Ridhima"});
 
 // BTCUSDOrderBook._sort("SELL");
 // console.log(BTCUSDOrderBook);
